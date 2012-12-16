@@ -19,7 +19,7 @@ Ember.Fetchable = Ember.Mixin.create({
       });
     }).promise();
   }),
-  update: (function(callback) {
+  fetch: (function(callback) {
     var _this;
     $.ajax;
     _this = this;
@@ -72,10 +72,10 @@ App.TwitterListView = Ember.View.extend({
 
 setInterval((function() {
   if (App.tweets.get('recentCount') < 10) {
-    return App.tweets.update();
+    return App.tweets.fetch();
   }
 }), 5000);
 
-App.tweets.update(function() {
+App.tweets.fetch(function() {
   return App.tweets.expandRecent();
 });

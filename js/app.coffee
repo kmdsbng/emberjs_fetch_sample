@@ -14,7 +14,7 @@ Ember.Fetchable = Ember.Mixin.create
       )
     ).promise()
   ),
-  update: ((callback) ->
+  fetch: ((callback) ->
     $.ajax
     _this = @
     @fetchItems(@get('maxId')).done((tweets) ->
@@ -26,9 +26,10 @@ Ember.Fetchable = Ember.Mixin.create
       if callback
         callback()
     )
-  ),
+  )
 
 
+# Controllers
 App.tweets = Ember.ArrayController.create Ember.Fetchable,
   content: [],
   maxId: 3, # adhoc
@@ -42,10 +43,11 @@ App.tweets = Ember.ArrayController.create Ember.Fetchable,
     @get('content').forEach((v) ->
       v.set('recent', false)
     )
-  ),
+  )
 
 
 
+# Views
 App.ApplicationView = Ember.View.extend()
 
 App.TwitterListView = Ember.View.extend
@@ -62,12 +64,13 @@ App.TwitterListView = Ember.View.extend
     @get('content').filterProperty('recent', false)
   ).property('content.@each.recent')
 
+# Setup
 setInterval((->
   if App.tweets.get('recentCount') < 10
-    App.tweets.update()
+    App.tweets.fetch()
 ), 5000)
 
-App.tweets.update(->
+App.tweets.fetch(->
   App.tweets.expandRecent()
 )
 
