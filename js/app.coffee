@@ -15,7 +15,6 @@ Ember.Fetchable = Ember.Mixin.create
     ).promise()
   ),
   fetch: ((callback) ->
-    $.ajax
     _this = @
     @fetchItems(@get('maxId')).done((tweets) ->
       items = tweets.map((v) ->

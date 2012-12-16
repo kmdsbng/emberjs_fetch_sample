@@ -21,7 +21,6 @@ Ember.Fetchable = Ember.Mixin.create({
   }),
   fetch: (function(callback) {
     var _this;
-    $.ajax;
     _this = this;
     return this.fetchItems(this.get('maxId')).done(function(tweets) {
       var items;
